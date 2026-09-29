@@ -89,14 +89,18 @@ export function Footer() {
             </p>
             <div className="mt-5 flex items-center gap-3">
               <a
-                href="#"
+                href="https://t.me/vistaoriginal"
+                target="_blank"
+                rel="noopener noreferrer"
                 aria-label="Telegram"
                 className="flex h-10 w-10 items-center justify-center rounded-full border border-[var(--color-border)] text-[var(--color-text-muted)] transition-colors hover:border-[var(--color-blue)] hover:text-[var(--color-blue)]"
               >
                 <TelegramIcon className="h-5 w-5" />
               </a>
               <a
-                href="#"
+                href="https://www.instagram.com/vista_academy_uz?stkn=MTE3Zmt4ajdwcTg3bQ%3D%3D&utm_source=qr"
+                target="_blank"
+                rel="noopener noreferrer"
                 aria-label="Instagram"
                 className="flex h-10 w-10 items-center justify-center rounded-full border border-[var(--color-border)] text-[var(--color-text-muted)] transition-colors hover:border-[var(--color-blue)] hover:text-[var(--color-blue)]"
               >
@@ -153,11 +157,20 @@ export function Footer() {
               </li>
               <li>
                 <a
-                  href="tel:+998901234567"
+                  href="tel:+998905296555"
                   className="flex items-center gap-2.5 text-[14px] text-[var(--color-text-muted)] transition-colors hover:text-[var(--color-text)]"
                 >
                   <PhoneIcon className="h-4 w-4 shrink-0" style={{ color: "var(--color-blue)" }} />
-                  +998 90 123 45 67
+                  +998 90 529 65 55
+                </a>
+              </li>
+              <li>
+                <a
+                  href="tel:+998905290555"
+                  className="flex items-center gap-2.5 text-[14px] text-[var(--color-text-muted)] transition-colors hover:text-[var(--color-text)]"
+                >
+                  <PhoneIcon className="h-4 w-4 shrink-0" style={{ color: "var(--color-blue)" }} />
+                  +998 90 529 05 55
                 </a>
               </li>
               <li>

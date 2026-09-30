@@ -1,5 +1,6 @@
 "use client";
 
+import { useEffect, useState } from "react";
 import { useTranslations } from "next-intl";
 import { cdn } from "@/lib/cdn";
 import { Reveal } from "./reveal";
@@ -48,9 +49,15 @@ function PinIcon({ className, style }: { className?: string; style?: React.CSSPr
   );
 }
 
+const PHONE_NUMBERS = [
+  { href: "tel:+998905296555", label: "+998 90 529 65 55" },
+  { href: "tel:+998905290555", label: "+998 90 529 05 55" },
+];
+
 export function Footer() {
   const year = new Date().getFullYear();
   const t = useTranslations();
+  const [callTarget, setCallTarget] = useState<{ href: string; label: string } | null>(null);
 
   const QUICK_LINKS = [
     { label: t("nav.home"), href: "/#top" },
@@ -68,6 +75,7 @@ export function Footer() {
   ];
 
   return (
+    <>
     <footer
       id="contact"
       className="border-t border-[var(--color-border)]"
@@ -155,24 +163,21 @@ export function Footer() {
                   {t("footer.address")}
                 </a>
               </li>
-              <li>
-                <a
-                  href="tel:+998905296555"
-                  className="flex items-center gap-2.5 text-[14px] text-[var(--color-text-muted)] transition-colors hover:text-[var(--color-text)]"
-                >
-                  <PhoneIcon className="h-4 w-4 shrink-0" style={{ color: "var(--color-blue)" }} />
-                  +998 90 529 65 55
-                </a>
-              </li>
-              <li>
-                <a
-                  href="tel:+998905290555"
-                  className="flex items-center gap-2.5 text-[14px] text-[var(--color-text-muted)] transition-colors hover:text-[var(--color-text)]"
-                >
-                  <PhoneIcon className="h-4 w-4 shrink-0" style={{ color: "var(--color-blue)" }} />
-                  +998 90 529 05 55
-                </a>
-              </li>
+              {PHONE_NUMBERS.map((phone) => (
+                <li key={phone.href}>
+                  <a
+                    href={phone.href}
+                    onClick={(e) => {
+                      e.preventDefault();
+                      setCallTarget(phone);
+                    }}
+                    className="flex items-center gap-2.5 text-[14px] text-[var(--color-text-muted)] transition-colors hover:text-[var(--color-text)]"
+                  >
+                    <PhoneIcon className="h-4 w-4 shrink-0" style={{ color: "var(--color-blue)" }} />
+                    {phone.label}
+                  </a>
+                </li>
+              ))}
               <li>
                 <a
                   href="mailto:info@vistaacademy.uz"
@@ -201,5 +206,78 @@ export function Footer() {
         </div>
       </div>
     </footer>
+    {callTarget && (
+      <CallConfirmModal phone={callTarget} onCancel={() => setCallTarget(null)} onConfirm={() => setCallTarget(null)} />
+    )}
+    </>
+  );
+}
+
+function CallConfirmModal({
+  phone,
+  onCancel,
+  onConfirm,
+}: {
+  phone: { href: string; label: string };
+  onCancel: () => void;
+  onConfirm: () => void;
+}) {
+  const t = useTranslations();
+
+  useEffect(() => {
+    const onKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Escape") onCancel();
+    };
+    document.addEventListener("keydown", onKeyDown);
+    const { overflow } = document.body.style;
+    document.body.style.overflow = "hidden";
+    return () => {
+      document.removeEventListener("keydown", onKeyDown);
+      document.body.style.overflow = overflow;
+    };
+  }, [onCancel]);
+
+  return (
+    <div
+      role="presentation"
+      onClick={onCancel}
+      className="fixed inset-0 z-[100] flex items-center justify-center bg-[rgba(31,41,55,0.45)] p-4 backdrop-blur-sm"
+    >
+      <div
+        role="dialog"
+        aria-modal="true"
+        aria-label={t("footer.callConfirmTitle")}
+        onClick={(e) => e.stopPropagation()}
+        className="relative w-full max-w-[360px] rounded-[var(--radius-xl)] bg-[var(--color-bg)] p-6 text-center shadow-[var(--shadow-raised)]"
+      >
+        <div
+          className="mx-auto flex h-12 w-12 items-center justify-center rounded-full"
+          style={{ background: "var(--color-tint-cream)", color: "var(--color-blue)" }}
+        >
+          <PhoneIcon className="h-5 w-5" />
+        </div>
+        <p className="font-heading mt-4 text-[16px] font-bold text-[var(--color-text)]">{t("footer.callConfirmTitle")}</p>
+        <p className="mt-2 text-[14px] leading-relaxed text-[var(--color-text-muted)]">
+          {t("footer.callConfirmMessage", { phone: phone.label })}
+        </p>
+        <div className="mt-5 flex items-center justify-center gap-3">
+          <button
+            type="button"
+            onClick={onCancel}
+            className="flex-1 whitespace-nowrap rounded-full border border-[var(--color-border)] px-4 py-2.5 text-[14px] font-bold text-[var(--color-text-muted)] transition-colors hover:text-[var(--color-text)]"
+          >
+            {t("footer.callConfirmCancel")}
+          </button>
+          <a
+            href={phone.href}
+            onClick={onConfirm}
+            className="flex-1 whitespace-nowrap rounded-full px-4 py-2.5 text-center text-[14px] font-bold text-white shadow-[var(--shadow-cta)] transition-transform duration-150 hover:scale-[1.03]"
+            style={{ background: "linear-gradient(135deg, var(--color-green) 0%, var(--color-green-dark) 100%)" }}
+          >
+            {t("footer.callConfirmConfirm")}
+          </a>
+        </div>
+      </div>
+    </div>
   );
 }

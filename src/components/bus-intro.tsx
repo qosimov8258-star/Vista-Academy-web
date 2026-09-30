@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { useTranslations } from "next-intl";
 import { cdn } from "@/lib/cdn";
 
@@ -9,11 +9,17 @@ const STORAGE_KEY = "vista-intro-seen";
 // to'silib qolmasin uchun zaxira vaqt (animatsiyaning o'z ichidagi finishIntro
 // chaqiruvlaridan ancha uzoqroq).
 const FALLBACK_MS = 25000;
+// Animatsiya ichidagi belgini bosish shart ekanligi ko'rinib turmasligi mumkin
+// (foydalanuvchi 25 soniyalik zaxira tugagunicha butun sayt — shu jumladan
+// admin panelda yuklangan rasmlar — ko'rinmaydi deb o'ylashi mumkin), shuning
+// uchun shu vaqtdan keyin har doim bosiladigan "o'tkazib yuborish" tugmasi chiqadi.
+const SKIP_BUTTON_DELAY_MS = 2500;
 
 export function BusIntro() {
   const t = useTranslations();
   const [visible, setVisible] = useState(false);
   const [closing, setClosing] = useState(false);
+  const [showSkip, setShowSkip] = useState(false);
 
   useEffect(() => {
     try {
@@ -22,16 +28,16 @@ export function BusIntro() {
     setVisible(true);
   }, []);
 
+  const finish = useCallback(() => {
+    setClosing(true);
+    try {
+      sessionStorage.setItem(STORAGE_KEY, "1");
+    } catch {}
+    setTimeout(() => setVisible(false), 500);
+  }, []);
+
   useEffect(() => {
     if (!visible) return;
-
-    const finish = () => {
-      setClosing(true);
-      try {
-        sessionStorage.setItem(STORAGE_KEY, "1");
-      } catch {}
-      setTimeout(() => setVisible(false), 500);
-    };
 
     const handleMessage = (event: MessageEvent) => {
       if (event.data && event.data.type === "vista-intro-done") finish();
@@ -39,11 +45,13 @@ export function BusIntro() {
 
     window.addEventListener("message", handleMessage);
     const fallback = setTimeout(finish, FALLBACK_MS);
+    const skipTimer = setTimeout(() => setShowSkip(true), SKIP_BUTTON_DELAY_MS);
     return () => {
       window.removeEventListener("message", handleMessage);
       clearTimeout(fallback);
+      clearTimeout(skipTimer);
     };
-  }, [visible]);
+  }, [visible, finish]);
 
   if (!visible) return null;
 
@@ -58,6 +66,15 @@ export function BusIntro() {
         className="h-full w-full border-0"
         allow="autoplay"
       />
+      {showSkip && (
+        <button
+          type="button"
+          onClick={finish}
+          className="absolute right-4 top-4 rounded-full border border-black/10 bg-white/90 px-4 py-2 text-[13px] font-bold text-[var(--color-text)] shadow-md backdrop-blur transition-colors hover:bg-white sm:right-6 sm:top-6"
+        >
+          {t("busIntroSkip")}
+        </button>
+      )}
     </div>
   );
 }

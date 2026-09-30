@@ -48,7 +48,11 @@
     "contactHeading": "Bog'lanish",
     "address": "Andijon sh., O'zbekiston",
     "copyright": "© {year} Vista Academy. Barcha huquqlar himoyalangan.",
-    "tagline": "Mehr, xavfsizlik va zamonaviy ta'lim bilan."
+    "tagline": "Mehr, xavfsizlik va zamonaviy ta'lim bilan.",
+    "callConfirmTitle": "Qo'ng'iroq qilish",
+    "callConfirmMessage": "{phone} raqamiga qo'ng'iroq qilmoqchimisiz?",
+    "callConfirmConfirm": "Qo'ng'iroq qilish",
+    "callConfirmCancel": "Bekor qilish"
   },
   "hero": {
     "badgeMobile": "✨ Bolalar dunyosiga xush kelibsiz",
@@ -232,6 +236,7 @@
   },
   "backButton": "Orqaga",
   "busIntro": "Vista Academy — Sehrli avtobus",
+  "busIntroSkip": "O'tkazib yuborish",
   "cradleFeeding": "Beshikdagi chaqaloqni ovqatlantirish o'yini",
   "videoCompare": {
     "firstAria": "Birinchi video",

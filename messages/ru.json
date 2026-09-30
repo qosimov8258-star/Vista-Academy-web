@@ -46,7 +46,11 @@
     "contactHeading": "Контакты",
     "address": "г. Андижан, Узбекистан",
     "copyright": "© {year} Vista Academy. Все права защищены.",
-    "tagline": "С заботой, безопасностью и современным образованием."
+    "tagline": "С заботой, безопасностью и современным образованием.",
+    "callConfirmTitle": "Звонок",
+    "callConfirmMessage": "Позвонить на номер {phone}?",
+    "callConfirmConfirm": "Позвонить",
+    "callConfirmCancel": "Отмена"
   },
   "hero": {
     "badgeMobile": "✨ Добро пожаловать в мир детства",
@@ -230,6 +234,7 @@
   },
   "backButton": "Назад",
   "busIntro": "Vista Academy — Волшебный автобус",
+  "busIntroSkip": "Пропустить",
   "cradleFeeding": "Игра «Покормить малыша в колыбели»",
   "videoCompare": {
     "firstAria": "Первое видео",

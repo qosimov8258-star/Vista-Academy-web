@@ -69,9 +69,7 @@ export default async function TeachersPage() {
       heroImage={{
         src: cdn("/rasm/oqtuvchi.jpeg"),
         alt: t("heroImageAlt"),
-        fit: "contain",
-        position: "80% 50%",
-        background: "var(--color-tint-cream)",
+        position: "50% 32%",
       }}
       afterContent={<TeacherSubjectHighlights />}
     >

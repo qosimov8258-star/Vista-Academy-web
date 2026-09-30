@@ -46,7 +46,11 @@
     "contactHeading": "Contact",
     "address": "Andijan, Uzbekistan",
     "copyright": "© {year} Vista Academy. All rights reserved.",
-    "tagline": "With care, safety and modern education."
+    "tagline": "With care, safety and modern education.",
+    "callConfirmTitle": "Call",
+    "callConfirmMessage": "Call {phone}?",
+    "callConfirmConfirm": "Call",
+    "callConfirmCancel": "Cancel"
   },
   "hero": {
     "badgeMobile": "✨ Welcome to a world made for kids",
@@ -230,6 +234,7 @@
   },
   "backButton": "Back",
   "busIntro": "Vista Academy — The magic bus",
+  "busIntroSkip": "Skip",
   "cradleFeeding": "Feed the baby in the cradle game",
   "videoCompare": {
     "firstAria": "First video",

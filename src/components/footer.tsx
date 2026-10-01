@@ -180,11 +180,11 @@ export function Footer() {
               ))}
               <li>
                 <a
-                  href="mailto:info@vistaacademy.uz"
+                  href="mailto:info@vista-academy.uz"
                   className="flex items-center gap-2.5 text-[14px] text-[var(--color-text-muted)] transition-colors hover:text-[var(--color-text)]"
                 >
                   <MailIcon className="h-4 w-4 shrink-0" style={{ color: "var(--color-blue)" }} />
-                  info@vistaacademy.uz
+                  info@vista-academy.uz
                 </a>
               </li>
             </ul>

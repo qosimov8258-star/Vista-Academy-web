@@ -1,6 +1,6 @@
 import type { MetadataRoute } from "next";
 
-const SITE_URL = "https://vistaacademy.uz";
+const SITE_URL = "https://vista-academy.uz";
 
 const ROUTES = ["", "/jadval", "/taomlar", "/tarbiyachi", "/talim-yonalishi", "/oqituvchilar", "/ariza"];
 

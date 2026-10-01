@@ -24,7 +24,7 @@ const courgette = Courgette({
   variable: "--font-courgette",
 });
 
-const SITE_URL = "https://vistaacademy.uz";
+const SITE_URL = "https://vista-academy.uz";
 
 const OG_LOCALES: Record<string, string> = {
   uz: "uz_UZ",
@@ -88,7 +88,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
     url: SITE_URL,
     logo: absoluteMediaUrl("/homepage/logo.png", SITE_URL),
     image: absoluteMediaUrl("/title-log.png", SITE_URL),
-    email: "info@vistaacademy.uz",
+    email: "info@vista-academy.uz",
     telephone: "+998901234567",
     address: {
       "@type": "PostalAddress",

@@ -1,7 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState, useTransition } from "react";
-import { useRouter } from "next/navigation";
+import { useEffect, useRef, useState } from "react";
 import { useLocale, useTranslations } from "next-intl";
 import clsx from "clsx";
 import { locales, localeCookieName, type Locale } from "@/i18n/config";
@@ -27,9 +26,8 @@ function ChevronDownIcon({ className }: { className?: string }) {
 export function LanguageSwitcher({ light = false }: { light?: boolean }) {
   const locale = useLocale() as Locale;
   const t = useTranslations("common");
-  const router = useRouter();
   const [open, setOpen] = useState(false);
-  const [isPending, startTransition] = useTransition();
+  const [isPending, setIsPending] = useState(false);
   const ref = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -44,8 +42,12 @@ export function LanguageSwitcher({ light = false }: { light?: boolean }) {
   const changeLocale = (next: Locale) => {
     setOpen(false);
     if (next === locale) return;
-    document.cookie = `${localeCookieName}=${next}; path=/; max-age=31536000`;
-    startTransition(() => router.refresh());
+    setIsPending(true);
+    document.cookie = `${localeCookieName}=${next}; path=/; max-age=31536000; SameSite=Lax`;
+    // To'liq sahifa qayta yuklanadi — faqat router.refresh() ba'zi
+    // joylashtirish (hosting/CDN) sharoitlarida yangi kukini hisobga olmay,
+    // eski RSC keshini qaytarib yuborishi mumkin edi.
+    window.location.reload();
   };
 
   return (

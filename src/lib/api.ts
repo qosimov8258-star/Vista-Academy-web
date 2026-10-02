@@ -1,3 +1,5 @@
+import { getLocale } from "next-intl/server";
+
 const API_URL = process.env.NEXT_PUBLIC_API_URL ?? "http://localhost:4000/api/v1";
 const API_ORIGIN = API_URL.replace(/\/api\/v1\/?$/, "");
 
@@ -21,10 +23,15 @@ interface Envelope<T> {
  * ko'rishi kerak — eski kesh emas. API vaqtincha ishlamay qolsa ham
  * marketing sayt buzilib qolmasligi uchun xatolik bo'lganda bo'sh natija
  * (fallback) qaytariladi.
+ *
+ * Joriy sayt tili (`locale`) so'rovga qo'shib yuboriladi — backend shu tilga
+ * mos tarjimani (bo'lsa) qaytaradi, aks holda o'zbekcha asl matnga tushadi.
  */
 export async function fetchLanding<T>(path: string, fallback: T): Promise<T> {
   try {
-    const res = await fetch(`${API_URL}/app/landing${path}`, { cache: "no-store" });
+    const locale = await getLocale();
+    const separator = path.includes("?") ? "&" : "?";
+    const res = await fetch(`${API_URL}/app/landing${path}${separator}locale=${locale}`, { cache: "no-store" });
     if (!res.ok) return fallback;
     const body = (await res.json()) as Envelope<T>;
     return body.data ?? fallback;

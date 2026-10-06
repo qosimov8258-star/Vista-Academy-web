@@ -49,7 +49,7 @@ export interface LandingGroup {
   name: string;
   slug: string;
   photoPath: string | null;
-  heroPhotoPath: string | null;
+  coverPhotoPath: string | null;
   photos: LandingGroupPhoto[];
   students: LandingGroupStudent[];
 }

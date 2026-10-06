@@ -13,7 +13,7 @@ export type Group = {
   name: string;
   /** Bosh sahifadagi kichik kartochka rasmi (mavjud bo'lsa). */
   image?: string;
-  /** Guruh sahifasidagi katta (hero) rasm — admin panelda alohida tanlanmagan bo'lsa, `image`ga qaytadi. */
+  /** Guruh sahifasidagi katta (hero) rasm — faqat admin panelda alohida yuklangan bo'lsa to'ladi. */
   photo?: string;
   color: string;
   /** Admin panelda "O'quvchilar" bo'limida kiritilgan haqiqiy o'quvchilar. */
@@ -78,7 +78,7 @@ export function toDisplayGroups(groups: LandingGroup[]): Group[] {
     slug: group.slug,
     name: group.name,
     image: assetUrl(group.photoPath) ?? undefined,
-    photo: assetUrl(group.heroPhotoPath ?? group.photoPath) ?? undefined,
+    photo: assetUrl(group.coverPhotoPath) ?? undefined,
     color: CARD_COLORS[index % CARD_COLORS.length],
     students: group.students.map((student) => ({
       name: student.name,

@@ -88,8 +88,8 @@ export default async function GroupPage({ params }: { params: Promise<{ slug: st
   const group = getGroupBySlug(await loadGroups(), slug);
   if (!group) notFound();
   const introImage = findGroupIntroImage(group.slug);
-  const closingImage = group.photos[0] ?? findGroupClosingImage(group.slug) ?? group.photo;
-  const heroImageSrc = HERO_IMAGE_OVERRIDES[group.slug] ?? group.photo;
+  const closingImage = group.photos[0] ?? findGroupClosingImage(group.slug) ?? group.photo ?? group.image;
+  const heroImageSrc = group.photo ?? HERO_IMAGE_OVERRIDES[group.slug] ?? group.image;
   const t = await getTranslations("groupPage");
   const tCommon = await getTranslations("common");
   const groupLabel = `${group.name} ${t("groupSuffix")}`;
@@ -139,7 +139,7 @@ export default async function GroupPage({ params }: { params: Promise<{ slug: st
           {Array.from({ length: STUDENT_SLOT_COUNT }, (_, index) => {
             const student = group.students[index];
             // O'zining rasmi bo'lmagan o'quvchi uchun guruhning bosh rasmi ko'rsatiladi (butunlay bo'sh joyларда emas).
-            const displayPhoto = student ? (student.photo ?? group.photo) : undefined;
+            const displayPhoto = student ? (student.photo ?? group.photo ?? group.image) : undefined;
             return (
               <Reveal key={index} direction={alternatingDirection(index)} delay={staggerDelay(index, 90, 360)} className="text-center">
                 <div

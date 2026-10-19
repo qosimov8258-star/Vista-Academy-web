@@ -6,7 +6,7 @@ import { cdn } from "@/lib/cdn";
 
 export async function generateMetadata(): Promise<Metadata> {
   const t = await getTranslations("educationPage");
-  return { title: t("metaTitle") };
+  return { title: t("metaTitle"), alternates: { canonical: "/talim-yonalishi" } };
 }
 
 export default async function EducationDirectionPage() {

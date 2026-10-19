@@ -10,7 +10,7 @@ import type { LandingMeal } from "@/lib/types";
 
 export async function generateMetadata(): Promise<Metadata> {
   const t = await getTranslations("mealsPage");
-  return { title: t("metaTitle") };
+  return { title: t("metaTitle"), alternates: { canonical: "/taomlar" } };
 }
 
 export default async function MealsPage() {

@@ -45,7 +45,6 @@ export async function generateMetadata(): Promise<Metadata> {
     description,
     keywords,
     applicationName: "Vista Academy",
-    alternates: { canonical: "/" },
     icons: {
       icon: "/icon.png",
       shortcut: "/icon.png",
@@ -65,6 +64,11 @@ export async function generateMetadata(): Promise<Metadata> {
       title,
       description,
       images: [cdn("/title-log.png")],
+    },
+    // Google Search Console / Yandex Webmaster egalikni tasdiqlash kodlari (.env'dan).
+    verification: {
+      google: process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION || "3raC3y1dKcCCNuJlJBIGqw-gUV7HOPqf75OGdBnTllQ",
+      yandex: process.env.NEXT_PUBLIC_YANDEX_VERIFICATION || undefined,
     },
     robots: {
       index: true,

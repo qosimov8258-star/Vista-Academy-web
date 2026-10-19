@@ -12,6 +12,8 @@ import { fetchLanding } from "@/lib/api";
 import { PLACEHOLDER_GROUPS, toDisplayGroups } from "@/lib/groups";
 import type { LandingGroup } from "@/lib/types";
 
+export const metadata = { alternates: { canonical: "/" } };
+
 export default async function HomePage() {
   const fetchedGroups = await fetchLanding<LandingGroup[]>("/groups", []);
   const groups = fetchedGroups.length > 0 ? toDisplayGroups(fetchedGroups) : PLACEHOLDER_GROUPS;

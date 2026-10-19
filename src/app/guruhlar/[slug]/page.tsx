@@ -80,7 +80,10 @@ export async function generateMetadata({
   const { slug } = await params;
   const group = getGroupBySlug(await loadGroups(), slug);
   const t = await getTranslations("groupPage");
-  return { title: group ? `${group.name} — Vista Academy` : t("metaTitleFallback") };
+  return {
+    title: group ? `${group.name} — Vista Academy` : t("metaTitleFallback"),
+    alternates: { canonical: `/guruhlar/${slug}` },
+  };
 }
 
 export default async function GroupPage({ params }: { params: Promise<{ slug: string }> }) {

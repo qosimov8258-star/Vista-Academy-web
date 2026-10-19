@@ -52,7 +52,7 @@ const PLACEHOLDER_INPUT: { name: string; image?: string }[] = [
   { name: "Kamalak", image: cdn("/guruhlar/raduga2.png") },
   { name: "Nemo", image: cdn("/guruhlar/nemo.png") },
   { name: "Yulduzcha", image: cdn("/guruhlar/yulduz.jpeg") },
-  { name: "Buratino", image: cdn("/guruhlar/") },
+  { name: "Buratino", image: cdn("/guruhlar/buratino.jpeg") },
   { name: "Akademiklar", image: cdn("/guruhlar/akademiki.jpeg") },
 ];
 

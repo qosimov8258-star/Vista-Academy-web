@@ -11,7 +11,7 @@ import { alternatingDirection, staggerDelay } from "@/components/reveal-utils";
 
 export async function generateMetadata(): Promise<Metadata> {
   const t = await getTranslations("schedulePage");
-  return { title: t("metaTitle") };
+  return { title: t("metaTitle"), alternates: { canonical: "/jadval" } };
 }
 
 const TYPE_COLORS: Record<LandingScheduleType, string> = {

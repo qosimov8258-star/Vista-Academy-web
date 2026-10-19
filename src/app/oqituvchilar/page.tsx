@@ -9,7 +9,7 @@ import type { LandingTeacher } from "@/lib/types";
 
 export async function generateMetadata(): Promise<Metadata> {
   const t = await getTranslations("teachersPage");
-  return { title: t("metaTitle") };
+  return { title: t("metaTitle"), alternates: { canonical: "/oqituvchilar" } };
 }
 
 /**

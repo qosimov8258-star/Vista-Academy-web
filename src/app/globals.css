@@ -39,6 +39,9 @@ html,
 body {
   background: var(--color-bg);
   color: var(--color-text);
+  /* Chetdan siljib kiruvchi (Reveal) elementlar ekrandan tashqarida turganda
+     iPhone'da gorizontal siljish paydo bo'lmasligi uchun. `clip` — sticky'ni buzmaydi. */
+  overflow-x: clip;
 }
 
 body {

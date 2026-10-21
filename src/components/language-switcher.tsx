@@ -23,7 +23,7 @@ function ChevronDownIcon({ className }: { className?: string }) {
   );
 }
 
-export function LanguageSwitcher({ light = false }: { light?: boolean }) {
+export function LanguageSwitcher({ light = false, inline = false }: { light?: boolean; inline?: boolean }) {
   const locale = useLocale() as Locale;
   const t = useTranslations("common");
   const [open, setOpen] = useState(false);
@@ -49,6 +49,32 @@ export function LanguageSwitcher({ light = false }: { light?: boolean }) {
     // eski RSC keshini qaytarib yuborishi mumkin edi.
     window.location.reload();
   };
+
+  // Mobil menyu `overflow-hidden` ichida — absolyut ochiladigan ro'yxat kesilib qoladi,
+  // shuning uchun u yerda tillar bevosita tugmalar qatori sifatida ko'rsatiladi.
+  if (inline) {
+    return (
+      <div className="flex items-center gap-1.5" role="group" aria-label={t("language")}>
+        {locales.map((code) => (
+          <button
+            key={code}
+            type="button"
+            onClick={() => changeLocale(code)}
+            disabled={isPending}
+            aria-pressed={code === locale}
+            className={clsx(
+              "h-9 min-w-[44px] rounded-full border px-3 text-[13px] font-bold uppercase transition-colors disabled:opacity-60",
+              code === locale
+                ? "border-[var(--color-green)] bg-[var(--color-green)] text-white"
+                : "border-[var(--color-border)] text-[var(--color-text)]/80",
+            )}
+          >
+            {code}
+          </button>
+        ))}
+      </div>
+    );
+  }
 
   return (
     <div ref={ref} className="relative">

@@ -192,7 +192,9 @@ export function SiteHeader() {
             >
               {t("common.cta")}
             </a>
-            <LanguageSwitcher />
+          </div>
+          <div className="mt-1 px-3">
+            <LanguageSwitcher inline />
           </div>
         </div>
       </div>

@@ -93,7 +93,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
     logo: absoluteMediaUrl("/homepage/logo.png", SITE_URL),
     image: absoluteMediaUrl("/title-log.png", SITE_URL),
     email: "info@vista-academy.uz",
-    telephone: "+998901234567",
+    telephone: "+998905290555",
     address: {
       "@type": "PostalAddress",
       addressLocality: "Andijon",
@@ -103,6 +103,16 @@ export default async function RootLayout({ children }: { children: React.ReactNo
       "@type": "City",
       name: "Andijon",
     },
+    sameAs: ["https://t.me/vistaoriginal", "https://www.instagram.com/vista_academy_uz"],
+  };
+
+  // Google'ga sayt nomi "Vista Academy" ekanini aytadi (qidiruvda brend nomi bilan chiqishi uchun).
+  const websiteJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    name: "Vista Academy",
+    alternateName: ["Vista Academy Andijon", "Vista Academy bog'cha"],
+    url: SITE_URL,
   };
 
   return (
@@ -111,6 +121,10 @@ export default async function RootLayout({ children }: { children: React.ReactNo
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd).replace(/</g, "\\u003c") }}
+        />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteJsonLd).replace(/</g, "\\u003c") }}
         />
         <NextIntlClientProvider locale={locale} messages={messages}>
           <BusIntro />

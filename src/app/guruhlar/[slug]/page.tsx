@@ -88,8 +88,12 @@ export async function generateMetadata({
 
 export default async function GroupPage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
-  const group = getGroupBySlug(await loadGroups(), slug);
+  const groups = await loadGroups();
+  const group = getGroupBySlug(groups, slug);
   if (!group) notFound();
+  // O'quvchilar hamma guruhda bir xil: admin panelda o'quvchilar kiritilgan birinchi guruhning
+  // ro'yxati barcha guruh sahifalarida ko'rsatiladi.
+  const students = groups.find((g) => g.students.length > 0)?.students ?? [];
   const introImage = findGroupIntroImage(group.slug);
   const closingImage = group.photos[0] ?? findGroupClosingImage(group.slug) ?? group.photo ?? group.image;
   const heroImageSrc = group.photo ?? HERO_IMAGE_OVERRIDES[group.slug] ?? group.image;
@@ -140,8 +144,8 @@ export default async function GroupPage({ params }: { params: Promise<{ slug: st
       >
         <div className="grid grid-cols-2 gap-x-5 gap-y-10 sm:gap-x-6 lg:grid-cols-4">
           {Array.from({ length: STUDENT_SLOT_COUNT }, (_, index) => {
-            const student = group.students[index];
-            // O'zining rasmi bo'lmagan o'quvchi uchun guruhning bosh rasmi ko'rsatiladi (butunlay bo'sh joyларда emas).
+            const student = students[index];
+            // O'zining rasmi bo'lmagan o'quvchi uchun guruhning bosh rasmi ko'rsatiladi.
             const displayPhoto = student ? (student.photo ?? group.photo ?? group.image) : undefined;
             return (
               <Reveal key={index} direction={alternatingDirection(index)} delay={staggerDelay(index, 90, 360)} className="text-center">
